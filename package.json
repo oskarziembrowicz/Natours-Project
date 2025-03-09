@@ -1,0 +1,22 @@
+{
+  "name": "natours",
+  "version": "1.0.0",
+  "description": "First node, express and mongoDB project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/oskarziembrowicz/Natours-Project.git"
+  },
+  "author": "Oskar Ziembrowicz",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/oskarziembrowicz/Natours-Project/issues"
+  },
+  "homepage": "https://github.com/oskarziembrowicz/Natours-Project#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
+}
