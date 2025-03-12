@@ -138,23 +138,17 @@ function deleteUser(req, res) {
     message: "This route is not yet defined",
   });
 }
+
 // 3. ROUTES
+const tourRouter = express.Router();
+tourRouter.route("/").get(getAllTours).post(createTour);
+tourRouter.route("/:id").get(getTour).patch(updateTour).delete(deleteTour);
+app.use("/api/v1/tours", tourRouter);
 
-app.route("/api/v1/tours").get(getAllTours).post(createTour);
-
-app
-  .route("/api/v1/tours/:id")
-  .get(getTour)
-  .patch(updateTour)
-  .delete(deleteTour);
-
-app.route("/api/v1/users").get(getAllUsers).post(createUser);
-
-app
-  .route("/api/v1/users/:id")
-  .get(getUser)
-  .patch(updateUser)
-  .delete(deleteUser);
+const userRouter = express.Router();
+userRouter.route("/").get(getAllUsers).post(createUser);
+userRouter.route("/:id").get(getUser).patch(updateUser).delete(deleteUser);
+app.use("/api/v1/users", userRouter);
 
 // 4. starting server
 
