@@ -1,11 +1,11 @@
 const fs = require("fs");
 
 const tours = JSON.parse(
-  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`)
+  fs.readFileSync(`${__dirname}/../dev-data/data/tours-simple.json`),
 );
 
 exports.checkID = (req, res, next, val) => {
-  console.log("Tour id is: " + val);
+  console.log(`Tour id is: ${val}`);
   if (req.params.id * 1 > tours.length) {
     // Return, because we want to break
     return res.status(404).json({
@@ -54,7 +54,8 @@ exports.getTour = (req, res) => {
 exports.createTour = (req, res) => {
   //   console.log(req.body);
   const newId = tours[tours.length - 1].id + 1;
-  const newTour = Object.assign({ id: newId }, req.body);
+  const newTour = Object.assign({ id: newId }, req.body); // For older Node
+  // const newTour = { ...req.body, id: newId }; // For newer Node
   tours.push(newTour);
 
   fs.writeFile(
@@ -67,7 +68,7 @@ exports.createTour = (req, res) => {
           tour: newTour,
         },
       });
-    }
+    },
   );
 };
 
