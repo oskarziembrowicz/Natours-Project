@@ -5,6 +5,11 @@ const handleCastErrorDB = (err) => {
   return new AppError(message, 400);
 };
 
+const handleDuplicateFieldsDB = (err) => {
+  const message = `Duplicate field: ${JSON.stringify(err.keyValue)}`;
+  return new AppError(message, 400);
+};
+
 const sendErrorDev = (err, res) => {
   res.status(err.statusCode).json({
     status: err.status,
@@ -45,9 +50,8 @@ module.exports = (err, req, res, next) => {
     // let error = { ...err };  -- This approach loses err.name value of the prototype of the CastError constructor
     let error = JSON.parse(JSON.stringify(err));
     // If error has name CastError change it to more friendly operational error
-    if (error.name === "CastError") {
-      error = handleCastErrorDB(error);
-    }
+    if (error.name === "CastError") error = handleCastErrorDB(error);
+    if (error.code === 11000) error = handleDuplicateFieldsDB(error);
 
     sendErrorProd(error, res);
   }
